@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="1e0bf506-2f4d-42db-9159-cb2420aaf568" name="airlines_ticket_booking" url="jdbc:mysql://localhost/airlines_ticket_booking?useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=UTC" driverClass="com.mysql.cj.jdbc.Driver" />
+      <data-source id="f68de92d-ada1-49a4-bd13-f47a88de380e" name="h2dbconnection" url="jdbc:hsqldb:mem:db" driverClass="org.hsqldb.jdbc.JDBCDriver" />
+    </data-sources>
+    <data-source-infos>
+      <data-source-info id="1e0bf506-2f4d-42db-9159-cb2420aaf568" persistence-unit-name="airlines_ticket_booking" />
+      <data-source-info id="" persistence-unit-name="airlines_ticket_booking_test" />
+      <data-source-info id="f68de92d-ada1-49a4-bd13-f47a88de380e" persistence-unit-name="test" />
+      <data-source-info id="f68de92d-ada1-49a4-bd13-f47a88de380e" persistence-unit-name="testing" />
+    </data-source-infos>
+  </component>
+</project>

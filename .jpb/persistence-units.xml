@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit name="airlines_ticket_booking" persistenceXmlPath="src/main/resources/META-INF/persistence.xml">
+        <packages>
+          <package value="" />
+        </packages>
+      </persistence-unit>
+      <persistence-unit name="airlines_ticket_booking_test">
+        <packages>
+          <package value="" />
+        </packages>
+      </persistence-unit>
+      <persistence-unit name="testing">
+        <packages>
+          <package value="" />
+        </packages>
+      </persistence-unit>
+      <persistence-unit name="test" persistenceXmlPath="src/main/resources/META-INF/persistence.xml">
+        <packages>
+          <package value="" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>
