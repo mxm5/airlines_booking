@@ -1,6 +1,5 @@
-# 1
+# 2
 
-1. adding all libraries in pom xml
-2. adding the test using hsql drivers and h2 driver
-3. adding the base entity to the project
-4. adding the hibernate util and testing it
+1. create all entities for where they are only tickets that people buy
+2. when create an entity at the end override the tostring an d the hashcode for that entity
+3. and test the relations and savings 

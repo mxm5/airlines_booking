@@ -1,6 +1,6 @@
 package Util;
 
-import Domain.BaseEntity;
+import Base.testEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,16 +9,16 @@ class DataBaseUtilTest {
 
     @Test
     void canPersistData() {
-        BaseEntity baseEntity = new BaseEntity();
+        testEntity testEntity = new testEntity();
         DataBaseUtil.entityManager.getTransaction().begin();
-        DataBaseUtil.entityManager.persist(baseEntity);
+        DataBaseUtil.entityManager.persist(testEntity);
         DataBaseUtil.entityManager.getTransaction().commit();
-        Long id = baseEntity.getId();
+        Long id = testEntity.getId();
         assertNotNull(id);
-        BaseEntity baseEntityQ = DataBaseUtil.entityManager.find(BaseEntity.class, id);
-        assertNotNull(baseEntityQ);
-        DataBaseUtil.entityManager.remove(baseEntityQ);
-        baseEntityQ = DataBaseUtil.entityManager.find(BaseEntity.class, id);
-        assertNull(baseEntityQ);
+        testEntity testEntityQ = DataBaseUtil.entityManager.find(testEntity.class, id);
+        assertNotNull(testEntityQ);
+        DataBaseUtil.entityManager.remove(testEntityQ);
+        testEntityQ = DataBaseUtil.entityManager.find(testEntity.class, id);
+        assertNull(testEntityQ);
     }
 }

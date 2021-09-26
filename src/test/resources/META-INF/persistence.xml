@@ -5,7 +5,12 @@
              version="3.0">
     <persistence-unit name="airlines_ticket_booking">
 
-        <class>Domain.BaseEntity</class>
+        <class>Base.testEntity</class>
+        <class>Domain.Company</class>
+        <class>Domain.Customer</class>
+        <class>Domain.Moderator</class>
+        <class>Domain.Ticket</class>
+
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>

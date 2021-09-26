@@ -1,19 +1,18 @@
-package Domain;
+package Base;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
+@MappedSuperclass
 @Getter
 @Setter
-public class BaseEntity {
-
+public class BaseEntity<ID extends Serializable> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
-
+    protected ID id;
 
 }
