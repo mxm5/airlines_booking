@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-public class testEntity {
+public class testEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -16,11 +16,14 @@ import java.util.List;
 @NoArgsConstructor
 public class Customer extends Person {
 
+    public Customer(String firstName, String lastName, String userName, String password) {
+        super(firstName, lastName, userName, password);
+    }
 
     // R 1-1 ticket
     // A balance
     @Column(name = "balance", nullable = false)
-    private Long balance;
+    private Long balance=0L;
 
     @OrderBy("arrivingDate desc")
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)

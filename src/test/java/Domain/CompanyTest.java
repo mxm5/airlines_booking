@@ -15,12 +15,18 @@ class CompanyTest {
         System.out.println(company.toString());
 
         DataBaseUtil.entityManager.persist(company);
+        DataBaseUtil.entityManager.getTransaction().commit();
         Long id = company.getId();
 
         Company company1 = DataBaseUtil.entityManager.find(Company.class, id);
         assertEquals(company,company1);
 
 
+
+    }
+
+    @Test
+    void companyMustHaveEmployee(){
 
     }
 }

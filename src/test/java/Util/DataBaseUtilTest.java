@@ -21,4 +21,20 @@ class DataBaseUtilTest {
         testEntityQ = DataBaseUtil.entityManager.find(testEntity.class, id);
         assertNull(testEntityQ);
     }
+
+    @Test
+    void shouldSimplySave() throws Exception {
+        testEntity testEntity = new testEntity();
+        System.out.println("========================"+testEntity.getId());
+        DataBaseUtil.simpleSave(testEntity);
+
+        Long id = testEntity.getId();
+        System.out.println("========================"+id);
+        assertNotNull(id);
+        testEntity testEntityQ = DataBaseUtil.entityManager.find(testEntity.class, id);
+        assertNotNull(testEntityQ);
+        DataBaseUtil.entityManager.remove(testEntityQ);
+        testEntityQ = DataBaseUtil.entityManager.find(testEntity.class, id);
+        assertNull(testEntityQ);
+    }
 }

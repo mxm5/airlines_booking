@@ -7,24 +7,33 @@ import java.util.Calendar;
 
 public class TimeUtil {
 
-    public static Timestamp now() {
+    //    public static void now() {
+//        return Timestamp.from(Instant.now());
+//    }
+    public static Timestamp nowToTimestamp() {
         return Timestamp.from(Instant.now());
+    }
+
+    public static Date nowToSqlDate() {
+        Timestamp fromInstant = Timestamp.from(Instant.now());
+        return new Date(fromInstant.getTime());
     }
 
     public static Date fourYearsFromNow() {
 
         Calendar cal = Calendar.getInstance();
-        cal.setTime(now());
+        cal.setTime(nowToTimestamp());
         cal.add(Calendar.YEAR, 4);
         return new Date(cal.getTime().getTime());
 
 //        todo make time format
-   /*
-    *
-    *   ts.setTime(cal.getTime().getTime()); // or
-    *   ts = new Timestamp(cal.getTime().getTime());
-    *   return new Timestamp(cal.getTime().getTime());
-    *
-    */
+//        todo make to sql.date and localdatetime
+        /*
+         *
+         *   ts.setTime(cal.getTime().getTime()); // or
+         *   ts = new Timestamp(cal.getTime().getTime());
+         *   return new Timestamp(cal.getTime().getTime());
+         *
+         */
     }
 }
