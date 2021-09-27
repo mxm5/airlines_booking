@@ -54,7 +54,7 @@ public class Company extends BaseEntity<Long> {
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(id,moderators, ticketsProvided, brandName, balance);
     }
 
     @Override

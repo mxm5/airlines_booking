@@ -1,21 +1,27 @@
 package Domain;
 
 import Util.DataBaseUtil;
+import Util.Variables;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+
+import static Util.DataBaseUtil.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CompanyTest {
 
     @Test
     void createACompany() {
-        DataBaseUtil.entityManager.getTransaction().begin();
-        Company company = new Company("ni");
+
+        Company company = new Company("1321321");
 
         System.out.println(company.toString());
 
-        DataBaseUtil.entityManager.persist(company);
-        DataBaseUtil.entityManager.getTransaction().commit();
+
+        simpleSave(company);
+
         Long id = company.getId();
 
         Company company1 = DataBaseUtil.entityManager.find(Company.class, id);

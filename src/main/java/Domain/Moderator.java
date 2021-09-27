@@ -54,7 +54,7 @@ public class Moderator extends Person {
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(id,company, joinDate, authority);
     }
 
     @Override
