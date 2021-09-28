@@ -1,7 +1,6 @@
 package Util;
 
-import Base.BaseEntity;
-import Exceptions.TransactionIsOpen;
+import Base.Entity.BaseEntity;
 
 import javax.persistence.*;
 

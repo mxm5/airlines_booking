@@ -1,6 +1,6 @@
 package Domain;
 
-import Base.BaseEntity;
+import Base.Entity.BaseEntity;
 import lombok.*;
 import org.hibernate.Hibernate;
 

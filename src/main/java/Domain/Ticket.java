@@ -1,6 +1,7 @@
 package Domain;
 
-import Base.BaseEntity;
+import Base.Entity.BaseEntity;
+import Exceptions.HomeAndDestinationAreSame;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,12 +22,22 @@ public class Ticket extends BaseEntity<Long> {
 //owner
 //orderingTime
 //providerCompany
+//todo destination
+//todo home
 
-
-    public Ticket(LocalDateTime movingDate, LocalDateTime arrivingDate, Company providerCompany) {
+    public Ticket(
+            LocalDateTime movingDate,
+            LocalDateTime arrivingDate,
+            Integer price,
+            Company providerCompany,
+            String home,
+            String destination) {
         this.movingDate = movingDate;
         this.arrivingDate = arrivingDate;
         this.providerCompany = providerCompany;
+        this.price = price;
+        this.home=home;
+        this.destination= destination;
     }
 
     @Column(name = "moving_date", nullable = false)
@@ -34,6 +45,7 @@ public class Ticket extends BaseEntity<Long> {
 
     @Column(name = "arriving_date", nullable = false)
     private LocalDateTime arrivingDate;
+
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "customer_id")
@@ -46,12 +58,21 @@ public class Ticket extends BaseEntity<Long> {
     @JoinColumn(name = "provider_company_id", nullable = false)
     private Company providerCompany;
 
+    @Column(name = "price", nullable = false)
+    private Integer price;
+
+    @Column(name = "home", nullable = false)
+    private String home;
+
+    @Column(name = "destination", nullable = false)
+    private String destination;
+
     @PrePersist
     public void prePersist() {
+        if(home.equals(destination)) throw new HomeAndDestinationAreSame();
         this.orderingTime = LocalDateTime.now();
     }
 
-//TODO  creating company to make
 
     @Override
     public boolean equals(Object o) {
@@ -74,6 +95,10 @@ public class Ticket extends BaseEntity<Long> {
                 "movingDate = " + movingDate + ", " +
                 "arrivingDate = " + arrivingDate + ", " +
                 "owner = " + owner + ", " +
-                "providerCompany = " + providerCompany + ")";
+                "orderingTime = " + orderingTime + ", " +
+                "providerCompany = " + providerCompany + ", " +
+                "price = " + price + ", " +
+                "home = " + home + ", " +
+                "destination = " + destination + ")";
     }
 }

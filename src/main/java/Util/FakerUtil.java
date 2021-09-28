@@ -2,7 +2,9 @@ package Util;
 
 import Domain.Company;
 import Domain.Customer;
+import Domain.Moderator;
 import Domain.Ticket;
+import Domain.enums.Roles;
 import com.github.javafaker.Faker;
 
 import java.sql.Time;
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class FakerUtil {
@@ -47,7 +50,20 @@ public class FakerUtil {
         return new Ticket(
                 fakeLocalDateTimePast(),
                 fakeLocalDateTimeFuture(),
-                new Company(faker.name().title())
+                new Random().nextInt(1000, 10000),
+                new Company(faker.company().name()),
+                faker.address().cityName(),
+                "the "+faker.address().cityName()
+        );
+    }
+
+    public static Moderator fakeModerator() {
+        return new Moderator(
+                faker.name().firstName(),
+                faker.name().lastName(),
+                faker.name().username(),
+                "1234",
+                Roles.normalAuthority
         );
     }
 }

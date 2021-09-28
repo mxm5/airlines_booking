@@ -1,6 +1,6 @@
 package Domain;
 
-import Util.DataBaseUtil;
+import Domain.enums.Roles;
 import org.junit.jupiter.api.Test;
 
 import static Util.DataBaseUtil.*;

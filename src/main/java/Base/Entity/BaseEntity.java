@@ -1,4 +1,4 @@
-package Base;
+package Base.Entity;
 
 import lombok.Getter;
 import lombok.Setter;

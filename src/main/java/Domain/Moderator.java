@@ -1,6 +1,7 @@
 package Domain;
 
-import Base.Person;
+import Base.Entity.Person;
+import Domain.enums.Roles;
 import Util.TimeUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

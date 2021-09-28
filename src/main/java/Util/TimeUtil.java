@@ -27,7 +27,8 @@ public class TimeUtil {
         return new Date(cal.getTime().getTime());
 
 //        todo make time format
-//        todo make to sql.date and localdatetime
+//        todo make to sql.date and local datetime
+//        todo for ticket we must check that arr time is after move time
         /*
          *
          *   ts.setTime(cal.getTime().getTime()); // or
