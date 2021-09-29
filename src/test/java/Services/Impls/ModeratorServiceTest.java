@@ -23,7 +23,10 @@ class ModeratorServiceTest {
 
         moderatorService.createATripWithTickets(tripTicket, 20);
         TicketRepository ticketRepository = new TicketRepository();
-        Collection<Ticket> all = ticketRepository.getAll();
+        Collection<Ticket> all = ticketRepository.
+                getAll().stream().filter(ticket -> {
+                    return ticket.getProviderCompany() == tripTicket.getProviderCompany();
+                }).toList();
         all.forEach(ticket -> {
                     assertEquals(
                             ticket.getProviderCompany(),

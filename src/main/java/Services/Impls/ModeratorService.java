@@ -72,6 +72,7 @@ public class ModeratorService extends Service<Moderator, Long, ModeratorReposito
                             t.getHome(),
                             t.getDestination()
                     );
+                    t.getProviderCompany().getTicketsProvided().add(newticket);
                     try {
                         ticketRepository.save(
                                 newticket

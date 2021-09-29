@@ -28,6 +28,6 @@ public class CustomerRepository extends Repository<Customer,Long>  implements Cu
 
     @Override
     public List<Ticket> searchTickets(String from, String to, OrderBy sorting) {
-        return null;//todo
+        return null;
     }
 }
