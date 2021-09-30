@@ -1,6 +1,7 @@
 package Base.Repository;
 
 import Base.Entity.BaseEntity;
+import Domain.Ticket;
 import Util.DataBaseUtil;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class Repository

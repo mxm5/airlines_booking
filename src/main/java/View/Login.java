@@ -1,31 +1,48 @@
 package View;
 
 import Base.View.View;
+import Domain.Customer;
+import Domain.Moderator;
+import Domain.enums.Roles;
+import Util.Context;
 
 
 public class Login extends View {
-    public Login() {
+
+
+    Roles userRole;
+
+    public Login(Roles userRole) {
         {
 
             String username = enterValue("enter your user name", 3);
 
             String password = enterValue("enter your password", 3);
 
-//            User enteredUser = new User(username, password);
-//
-//            User login = Services.user.login(enteredUser);
+            if (userRole != Roles.customer) {
+                Moderator loginModerator = Context.getModeratorService().loginModerator(username, password);
+                if (loginModerator != null) {
 
-//            if (login != null) {
-//                success("login successful");
-//                Services.setLoggedUser(login);
-//                new Dashboard();
-//
-//
-//            } else {
-//                warning("wrong information");
-//                new Welcome();
-//            }
+                    Context.setCurrentModerator(loginModerator);
+                    new ModeratorDashboard();
+                } else {
+                    warning("wrong information try again");
+                    new Welcome();
+                }
+            } else {
+                Customer loginCustomer = Context.getCustomerService().loginCustomer(username, password);
+                if (loginCustomer != null) {
 
+                    Context.setCurrentCustomer(loginCustomer);
+                    new CustomerDashboard();
+                } else {
+                    warning("wrong information try again");
+                    new Welcome();
+                }
+
+            }
         }
+
     }
 }
+

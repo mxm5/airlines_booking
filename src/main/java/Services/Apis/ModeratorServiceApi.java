@@ -5,6 +5,8 @@ import Domain.Company;
 import Domain.Moderator;
 import Domain.Ticket;
 
+import java.util.List;
+
 public interface ModeratorServiceApi extends ServiceApi<Moderator, Long> {
     Moderator loginModerator(String username, String password);//todo
 
@@ -14,6 +16,10 @@ public interface ModeratorServiceApi extends ServiceApi<Moderator, Long> {
     boolean registerCompany(Company company);//todo
 
     void withdraw(Long withdraw,Company company);
+
+    List<Ticket> viewListOfCompanyTickets();
+
+    List<Ticket> viewListOfCompanyTicketsByDestination();// todo
 
     void createATripWithTickets(Ticket ticket,int count);// todo tickets time must be after now
 

@@ -16,4 +16,10 @@ public interface TicketRepositoryApi extends RepositoryApi<Ticket,Long> {
     List<Ticket> sortHomeAndDestinyTicketsByPrice(String home, String destination, OrderBy orderBy);
 
     List<Ticket> sortHomeAndDestinyTicketsByCompanyBrand(String home, String destination, OrderBy orderBy);
+
+    List<Ticket> sortTicketsOrderByMovingDate(String from, String to, OrderBy sorting);
+
+    List<Ticket> sortTicketsOrderByArrivingDate(String from, String to, OrderBy sorting);
+
+    List getTicketsCountProvidedByTrip();
 }

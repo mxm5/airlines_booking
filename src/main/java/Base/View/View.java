@@ -2,14 +2,25 @@ package Base.View;
 
 //import Domain.Tweet;
 
+import Domain.Ticket;
+import Util.TimeUtil;
+import org.apache.commons.lang3.StringUtils;
+
+import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import static Util.TimeUtil.*;
 
 public class View implements PageApi {
 
     {
         printTitle();
     }
+
 
     public View() {
     }
@@ -94,15 +105,44 @@ public class View implements PageApi {
     }
 
     @Override
+    public void exit() {
+        printTitle("good bye");
+        print("exiting ...");
+    }
+
+    @Override
+    public String enterPassword() {
+        String password;
+        while (true) {
+            password = enterValue("enter your your password", 3);
+            String confirm = enterValue("confirm your password", 3);
+            if (password.equals(confirm)) break;
+        }
+        return password;
+    }
+
+    @Override
     public String enterLine(String msg) {
         String val;
         System.out.print(msg + " > ");
         val = new Scanner(System.in).nextLine();
         return val;
     }
+
+    @Override
+    public void printTimeFormat(Date Date) {
+
+    }
+
+
+    @Override
+    public void printTimeFormat(LocalDateTime localDateTime) {
+
+    }
+
     @Override
     public String enterLine280(String msg) {
-        String val="";
+        String val = "";
         while (true) {
             System.out.print(msg + " : " + "\n >");
             val = new Scanner(System.in).nextLine();
@@ -120,16 +160,88 @@ public class View implements PageApi {
         return val;
     }
 
+
+    @Override
+    public void printTicketInFormat(Ticket ticket) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String move = ticket.getMovingDate().format(formatter);
+        String arrive = ticket.getArrivingDate().format(formatter);
+        int size = 50;
+        System.out.print(StringUtils.rightPad("from:", size, " . ")+"\n");
+        System.out.println(StringUtils.leftPad(ticket.getHome(), size));
+        System.out.print(StringUtils.rightPad("to:", size, " . ")+"\n");
+        System.out.println(StringUtils.leftPad(ticket.getDestination(), size));
+        System.out.print(StringUtils.rightPad("moving date:", size, " . ")+"\n");
+        System.out.println(StringUtils.leftPad(move, size));
+        System.out.print(StringUtils.rightPad("arriving date:", size, " . ")+"\n");
+        System.out.println(StringUtils.leftPad(arrive, size));
+        if (ticket.getOwner() == null) {
+            System.out.print(StringUtils.rightPad("available for sale:", size, " . ")+"\n");
+            System.out.println(StringUtils.leftPad("available +", size));
+        }
+        System.out.print(StringUtils.rightPad("price:", size, " . ")+"\n");
+        System.out.println(StringUtils.leftPad(String.valueOf(ticket.getPrice()), size));
+        System.out.print(StringUtils.rightPad("provider:", size, " . ")+"\n");
+        System.out.println(StringUtils.leftPad(String.valueOf(ticket.getProviderCompany().getBrandName()), size));
+        line(size);
+    }
+
+    @Override
+    public LocalDateTime enterTicketDateTime() throws Exception {
+        LocalDateTime selectedDateTime = null;
+        // stack overflow way of getting time
+        // https://stackoverflow.com/questions/23491255/read-date-in-java-with-scanner
+        print("enter moving date time .");
+        while (true) {
+            int currentYear = nowToSqlDate().toLocalDate().getYear();
+            System.out.println("enter valid year .");
+            int year = selectOpt(currentYear, currentYear);
+            System.out.println("enter valid month .");
+            int month = selectOpt(1, 12);
+            System.out.println("enter valid day .");
+            int day = selectOpt(1, 31);
+            System.out.println("enter valid minute .");
+            int minute = selectOpt(0, 59);
+            System.out.println("enter valid hour .");
+            int hour = selectOpt(0, 23);
+            try {
+                selectedDateTime = LocalDateTime.of(year, month, day, hour, minute);
+                break;
+            } catch (Exception e) {
+                warning("select a valid time");
+            }
+        }
+        return selectedDateTime;
+    }
+
+    @Override
+    public int setPrice() {
+        int price;
+        print("enter a correct value for price >");
+        while (true) {
+            try {
+                price = new Scanner(System.in).nextInt();
+                break;
+            } catch (Exception e) {
+                warning("insert correct value");
+            }
+        }
+        success("entered " + price);
+        return price;
+    }
+
     @Override
     public int selectOpt(int maxOpt) {
-        print();
+
         int opt;
-        print("enter an option between 1 to " + maxOpt);
+        print("enter an option between 1 to " + maxOpt + " >");
         while (true) {
             try {
                 opt = new Scanner(System.in).nextInt();
-                if (opt > maxOpt)
-                    warning("enter an option between 1 to " + maxOpt);
+                if (opt > maxOpt || opt < 1)
+                    warning("enter an option between 1 to " + maxOpt + " >");
+
                 else break;
             } catch (Exception e) {
 
@@ -139,6 +251,51 @@ public class View implements PageApi {
         success("selected " + opt);
         return opt;
     }
+
+    @Override
+    public int selectOpt(int maxOpt, String message) {
+        print(message + " .");
+        int opt;
+        print("enter an option between 1 to " + maxOpt + " >");
+        while (true) {
+            try {
+                opt = new Scanner(System.in).nextInt();
+                if (opt > maxOpt || opt < 1)
+                    warning("enter an option between 1 to " + maxOpt + " >");
+
+                else break;
+            } catch (Exception e) {
+
+                warning("insert correct value");
+            }
+        }
+        success("selected " + opt);
+        return opt;
+    }
+
+    @Override
+    public int selectOpt(int minOpt, int maxOpt) throws Exception {
+
+        if (minOpt > maxOpt) throw new Exception(" min is higher than max");
+        int opt;
+        print("enter an option between " + minOpt + " to " + maxOpt + " >");
+        while (true) {
+            try {
+                opt = new Scanner(System.in).nextInt();
+                if (opt > maxOpt || opt < minOpt)
+                    warning("enter an option between " + minOpt + " to " + maxOpt + " >");
+                else {
+                    break;
+                }
+            } catch (Exception e) {
+
+                warning("insert correct value");
+            }
+        }
+        success("selected " + opt);
+        return opt;
+    }
+
 
     @Override
     public <E> void printTitle(E value) {

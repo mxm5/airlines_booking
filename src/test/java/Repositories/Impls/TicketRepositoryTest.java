@@ -2,10 +2,12 @@ package Repositories.Impls;
 
 import Domain.Company;
 import Domain.Customer;
+import Domain.Moderator;
 import Domain.Ticket;
 import Domain.enums.OrderBy;
 import Repositories.Apis.TicketRepositoryApi;
 import Services.Impls.ModeratorService;
+import Util.Context;
 import Util.DataBaseUtil;
 import Util.FakerUtil;
 import com.google.common.collect.Streams;
@@ -18,6 +20,7 @@ import javax.xml.crypto.Data;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -155,5 +158,34 @@ class TicketRepositoryTest {
         ticketsList.forEach(ticket1 -> {
             System.out.println(ticket1.getProviderCompany().getBrandName()+" "+ticket1.getPrice());
         });
+    }
+
+    @Test
+    void getTicketsCountProvidedByTrip() throws Exception {
+        Company company = new Company("xyz");
+        Ticket ticket = fakeTicket();
+        ticket.setProviderCompany(company);
+        moderatorService.createATripWithTickets(ticket,5);
+        ticket =fakeTicket();
+        ticket.setProviderCompany(company);
+        moderatorService.createATripWithTickets(ticket,5);ticket =fakeTicket();
+        ticket.setProviderCompany(company);
+        moderatorService.createATripWithTickets(ticket,5);ticket =fakeTicket();
+        ticket.setProviderCompany(company);
+        moderatorService.createATripWithTickets(ticket,5);
+        ticket = fakeTicket();
+        ticket.setProviderCompany(company);
+        moderatorService.createATripWithTickets(ticket, 5);
+        Moderator moderator = fakeModerator();
+        moderator.setCompany(company);
+        company.getModerators().add(moderator);
+        ModeratorRepository moderatorRepository = new ModeratorRepository();
+        moderatorRepository.save(moderator);
+        Context.setCurrentModerator(moderator);
+        List<Object> ticketsCountProvidedByTrip = ticketRepository.getTicketsCountProvidedByTrip();
+//        for(Object object : ticketsCountProvidedByTrip) {
+//            Map row = (Map)object;
+//            System.out.println(row);
+//        }
     }
 }

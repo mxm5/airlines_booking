@@ -9,7 +9,9 @@ import Repositories.Impls.CompanyRepository;
 import Repositories.Impls.ModeratorRepository;
 import Repositories.Impls.TicketRepository;
 import Services.Apis.ModeratorServiceApi;
+import Util.Context;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class ModeratorService extends Service<Moderator, Long, ModeratorRepository> implements ModeratorServiceApi {
@@ -43,7 +45,14 @@ public class ModeratorService extends Service<Moderator, Long, ModeratorReposito
 
     @Override
     public boolean registerCompany(Company company) {
+        Moderator currentModerator = Context.getCurrentModerator();
+        if (currentModerator == null) return false;
         try {
+            company.getModerators().add(
+                    currentModerator
+            );
+            currentModerator.setCompany(company);
+            repository.save(currentModerator);
             companyRepository.save(company);
             return true;
         } catch (Exception e) {
@@ -57,6 +66,20 @@ public class ModeratorService extends Service<Moderator, Long, ModeratorReposito
         //todo check role
         //todo check company balance
         //todo check transaction fee
+    }
+
+    @Override
+    public List<Ticket> viewListOfCompanyTickets() {
+        Company currentCompany = Context.getCurrentModerator().getCompany();
+        if (currentCompany != null)
+            return currentCompany.getTicketsProvided();
+        else return null;
+    }
+
+    @Override
+    public List<Ticket> viewListOfCompanyTicketsByDestination() {
+//        return ticketRepository.getTicketsCountProvidedByTrip();
+        return null;
     }
 
     @Override

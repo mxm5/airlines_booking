@@ -12,5 +12,6 @@ public interface CustomerRepositoryApi extends RepositoryApi<Customer,Long> {
 
     Customer existsCustomerWithUsernameAndPassWord(String username,String password );
 
-    List<Ticket> searchTickets(String from, String to, OrderBy sorting);
+
+
 }

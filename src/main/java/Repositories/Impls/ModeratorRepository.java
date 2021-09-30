@@ -18,8 +18,13 @@ public class ModeratorRepository extends Repository<Moderator, Long> implements 
                 " FROM " + getType().getSimpleName() + " u WHERE u.userName = '" + username + "' " +
                         "AND u.password = '" + password + "' "
                 , getType());
+        try {
+            return query.getSingleResult();
 
-        return query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("not found");
+            return null;
+        }
     }
 
 
