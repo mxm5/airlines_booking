@@ -16,11 +16,9 @@ class ModeratorRepositoryTest {
     @Test
     void existsModeratorWithUsernameAndPassWord() throws Exception {
         Moderator moderator = FakerUtil.fakeModerator();
-        moderator.setUserName("xxxxxxxxxxz");
 
-        moderator.setId(null);
         moderatorRepository.save(moderator);
-
+        moderator = moderatorRepository.getAll().stream().toList().get(0);
         System.out.println(moderator);
         Moderator loggedIn = moderatorRepository.existsModeratorWithUsernameAndPassWord(
                 moderator.getUserName(),
