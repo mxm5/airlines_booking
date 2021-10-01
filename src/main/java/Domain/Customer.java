@@ -21,6 +21,13 @@ public class Customer extends Person {
         super(firstName, lastName, userName, password);
     }
 
+    public void addBalance(Integer amount) {
+        this.balance+=amount;
+    }
+  public   void subBalance(Integer amount){
+        this.balance-=amount;
+    }
+
     // R 1-1 ticket
     // A balance
     @Column(name = "balance", nullable = false)

@@ -40,7 +40,7 @@ public class Moderator extends Person {
     private Date joinDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "authority", nullable = false, unique = true)
+    @Column(name = "authority", nullable = false)
     private Roles authority;
 
 

@@ -12,7 +12,7 @@ public interface CustomerServiceApi extends ServiceApi<Customer, Long> {
 
     boolean registerCustomer(Customer customer);//todo
 
-    void buyTicket();//todo
+    void buyTicket(Ticket ticket);//todo
 
     void refundTicket();//todo
 

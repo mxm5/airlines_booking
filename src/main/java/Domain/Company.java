@@ -16,7 +16,13 @@ import java.util.Objects;
 @Setter
 public class Company extends BaseEntity<Long> {
 
+    public void addBalance(Integer balance) {
+        this.balance += (long) balance;
+    }
 
+    public void refundBalance(Integer balance) {
+        this.balance -= (long) balance;
+    }
 
     //R Moderators
     //R Tickets
@@ -31,12 +37,12 @@ public class Company extends BaseEntity<Long> {
     @OrderBy("joinDate desc")
     @OneToMany(mappedBy = "company", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     @ToString.Exclude
-    private List<Moderator> moderators=new ArrayList<>();
+    private List<Moderator> moderators = new ArrayList<>();
 
     @OrderBy("orderingTime")
     @OneToMany(mappedBy = "providerCompany", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @ToString.Exclude
-    private List<Ticket> ticketsProvided=new ArrayList<>();
+    private List<Ticket> ticketsProvided = new ArrayList<>();
 
     @Column(name = "brand_name", nullable = false, unique = true)
     private String brandName;
@@ -54,7 +60,7 @@ public class Company extends BaseEntity<Long> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id,moderators, ticketsProvided, brandName, balance);
+        return Objects.hash(id, moderators, ticketsProvided, brandName, balance);
     }
 
     @Override

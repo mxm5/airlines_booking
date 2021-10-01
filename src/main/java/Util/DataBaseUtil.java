@@ -14,11 +14,17 @@ public class DataBaseUtil {
         entityManager = entityManagerFactory.createEntityManager();
     }
 
-    public static <E extends BaseEntity> void simpleSave(E entity)   {
+    public static <E extends BaseEntity> void simpleSave(E entity) {
         entityManager.getTransaction().begin();
         entityManager.persist(entity);
         entityManager.getTransaction().commit();
 
     }
 
+    public static <E extends BaseEntity> void simpleUpdateInTx(E entity) {
+        if (entity.getId() == null)
+            entityManager.persist(entity);
+        else
+            entityManager.merge(entity);
+    }
 }
