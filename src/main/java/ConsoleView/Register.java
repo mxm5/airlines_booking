@@ -1,6 +1,5 @@
-package View;
+package ConsoleView;
 
-import Base.Entity.Person;
 import Base.View.View;
 import Domain.Customer;
 import Domain.Moderator;

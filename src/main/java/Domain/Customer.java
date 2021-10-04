@@ -31,7 +31,7 @@ public class Customer extends Person {
     // R 1-1 ticket
     // A balance
     @Column(name = "balance", nullable = false)
-    private Long balance=0L;
+    private Integer balance=0;
 
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<Ticket> tickets=new ArrayList<>();
@@ -61,3 +61,4 @@ public class Customer extends Person {
                 "balance = " + balance + ")";
     }
 }
+

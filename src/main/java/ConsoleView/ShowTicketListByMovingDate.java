@@ -1,4 +1,4 @@
-package View;
+package ConsoleView;
 
 import Base.View.View;
 import Domain.Ticket;
@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ShowTicketListByArrivingDate extends View {
+public class ShowTicketListByMovingDate extends View {
     private final List<Ticket> ticketData;
 
-    public ShowTicketListByArrivingDate(List<Ticket> ticketss) {
+    public ShowTicketListByMovingDate(List<Ticket> ticketss) {
         this.ticketData = ticketss;
-        Map<LocalDateTime, List<Ticket>> map = ticketData.stream().collect(Collectors.groupingBy(Ticket::getArrivingDate));
+        Map<LocalDateTime, List<Ticket>> map = ticketData.stream().collect(Collectors.groupingBy(Ticket::getMovingDate));
 
 
         line(50);
@@ -27,10 +27,10 @@ public class ShowTicketListByArrivingDate extends View {
             assert firstTicket != null;
             printTicketInFormat(firstTicket);
             System.out.println();
-            System.out.println(" arriving date  " + firstTicket.getMovingDate());
+            System.out.println(" moving date  " + firstTicket.getMovingDate());
             System.out.println(" x " + tickets.size());
 
         }
-   new CustomerDashboard();
+        new CustomerDashboard();
     }
 }

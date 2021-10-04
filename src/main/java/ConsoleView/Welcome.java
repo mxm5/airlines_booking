@@ -1,8 +1,7 @@
-package View;
+package ConsoleView;
 
 import Base.View.View;
 import Domain.enums.Roles;
-import Util.Context;
 
 public class Welcome extends View {
 

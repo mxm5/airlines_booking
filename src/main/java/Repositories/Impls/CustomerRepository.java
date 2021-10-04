@@ -6,6 +6,7 @@ import Domain.Moderator;
 import Domain.Ticket;
 import Domain.enums.OrderBy;
 import Repositories.Apis.CustomerRepositoryApi;
+import Util.Context;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -35,4 +36,9 @@ public class CustomerRepository extends Repository<Customer, Long> implements Cu
     }
 
 
+    public void addBalance(Integer amount) throws Exception {
+        Customer currentCustomer = Context.getCurrentCustomer();
+        currentCustomer.addBalance(amount);
+        save(currentCustomer);
+    }
 }

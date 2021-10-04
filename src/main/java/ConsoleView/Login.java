@@ -1,4 +1,4 @@
-package View;
+package ConsoleView;
 
 import Base.View.View;
 import Domain.Customer;

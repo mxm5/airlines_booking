@@ -1,9 +1,7 @@
-package View;
+package ConsoleView;
 
 import Base.View.View;
-import Domain.enums.Roles;
 import Util.Context;
-import com.google.common.collect.Lists;
 
 public class ModeratorDashboard extends View {
     public ModeratorDashboard() {
@@ -34,12 +32,14 @@ public class ModeratorDashboard extends View {
                     if (hasNoCompany) {
                         viewing = false;
                         exit();
-                    } else
+                    } else {
+                        viewing = false;
                         new ViewCompanyTickets();
+                    }
                 }
                 case 3 -> {
-                    viewing = false;
                     exit();
+                    viewing = false;
                 }
             }
 

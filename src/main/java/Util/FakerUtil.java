@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import static Util.TimeUtil.nowToLocalDateTime;
+
 public class FakerUtil {
     public static final Faker faker = new Faker();
 
@@ -50,11 +52,26 @@ public class FakerUtil {
         return new Ticket(
                 fakeLocalDateTimePast(),
                 fakeLocalDateTimeFuture(),
-                new Random().nextInt(1000, 10000),
+                new Random().nextInt(1000, 10_000),
                 new Company(faker.company().name()),
                 faker.address().cityName(),
-                "the "+faker.address().cityName()
+                "the " + faker.address().cityName()
         );
+    }
+
+    public static LocalDateTime randomTimeInRangeNowAndOneHourAgo() {
+        LocalDateTime now = nowToLocalDateTime();
+        LocalDateTime oneHourAgo = now.minusHours(1);
+        int randomMinutesInRange0to60 = new Random().nextInt(61);
+        return oneHourAgo.plusMinutes(
+                randomMinutesInRange0to60 // 0 to 60
+        );
+    }
+
+    public static Ticket OneHourToMoveTicket() {
+        Ticket ticket = fakeTicket();
+        ticket.setMovingDate(randomTimeInRangeNowAndOneHourAgo());
+        return ticket;
     }
 
     public static Moderator fakeModerator() {

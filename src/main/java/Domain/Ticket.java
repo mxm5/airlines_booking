@@ -2,6 +2,8 @@ package Domain;
 
 import Base.Entity.BaseEntity;
 import Exceptions.HomeAndDestinationAreSame;
+import Exceptions.MovingDateCantBeAfterArriving;
+import Exceptions.MovingDateCantBeInPastTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -68,9 +70,29 @@ public class Ticket extends BaseEntity<Long> {
     private String destination;
 
     @PrePersist
-    public void prePersist() {
-        if(home.equals(destination)) throw new HomeAndDestinationAreSame();
+    public void prePersist() throws RuntimeException {
+        if(home.equals(destination)) {
+            HomeAndDestinationAreSame err = new HomeAndDestinationAreSame(
+                    "home and destination cant be same");
+            err.printStackTrace();
+            //            throw err;
+        }
         this.orderingTime = LocalDateTime.now();
+        if (movingDate.isAfter(arrivingDate)) {
+            MovingDateCantBeAfterArriving err = new MovingDateCantBeAfterArriving(
+                    "moving date cant be after arriving date"
+            );
+            err.printStackTrace();
+//            throw err;
+                    }
+        if (movingDate.isBefore(LocalDateTime.now())) {
+
+            MovingDateCantBeInPastTime err = new MovingDateCantBeInPastTime(
+                    "moving Date cant be in past time"
+            );
+            err.printStackTrace();
+//            throw err;
+        }
     }
 
 

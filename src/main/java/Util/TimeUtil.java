@@ -3,6 +3,7 @@ package Util;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class TimeUtil {
@@ -12,6 +13,11 @@ public class TimeUtil {
 //    }
     public static Timestamp nowToTimestamp() {
         return Timestamp.from(Instant.now());
+    }
+
+    public static LocalDateTime nowToLocalDateTime() {
+        Instant now = Instant.now();
+        return Timestamp.from(now).toLocalDateTime();
     }
 
     public static Date nowToSqlDate() {

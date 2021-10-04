@@ -1,4 +1,4 @@
-package View;
+package ConsoleView;
 
 import Base.View.View;
 import Domain.Ticket;
@@ -13,8 +13,6 @@ public class ViewCompanyTickets extends View {
         tickets.forEach(
                 this::printTicketInFormat
         );
-        int get_back = printOptions("get back");
-        selectOpt(1);
         new ModeratorDashboard();
 
     }

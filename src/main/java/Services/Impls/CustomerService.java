@@ -15,9 +15,11 @@ import Util.Context;
 import Util.DataBaseUtil;
 
 import javax.persistence.EntityTransaction;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static Util.DataBaseUtil.*;
+import static Util.TimeUtil.nowToLocalDateTime;
 
 public class CustomerService extends Service<Customer, Long, CustomerRepository> implements CustomerServiceApi {
 
@@ -48,14 +50,21 @@ public class CustomerService extends Service<Customer, Long, CustomerRepository>
 
     @Override
     public void buyTicket(Ticket ticket) {
+        LocalDateTime now = nowToLocalDateTime();
+        LocalDateTime oneHourAgo = now.minusHours(1);
+        LocalDateTime movingDate = ticket.getMovingDate();
+        if (movingDate.isAfter(oneHourAgo)&&movingDate.isBefore(now)) {
+            Integer halfOfPrice = ticket.getPrice() / 2;
+            ticket.setPrice(halfOfPrice);
+        }
         Customer currentCustomer = Context.getCurrentCustomer();
-        //todo check balance
-        Long customerBalance = currentCustomer.getBalance();
-        //todo check transaction fee
+        // check balance
+        int customerBalance = currentCustomer.getBalance();
+        // check transaction fee
         Company providerCompany = ticket.getProviderCompany();
         Integer price = ticket.getPrice();
-        //todo check availability not sold
-        if (customerBalance > price) {
+        // check availability not sold
+        if (customerBalance >= price) {
             if (ticket.getOwner() == null) {
 
                 EntityTransaction transaction = entityManager.getTransaction();
@@ -77,6 +86,9 @@ public class CustomerService extends Service<Customer, Long, CustomerRepository>
         } else throw new NotEnoughBalance("not enough balance");
         //todo subtract price from balance
     }
+
+
+
 
     @Override
     public void refundTicket() {
@@ -121,6 +133,8 @@ public class CustomerService extends Service<Customer, Long, CustomerRepository>
     public List<Ticket> sortTicketsByDestinationCity(OrderBy orderBy) {
         return ticketRepository.sortTicketsByDestinationCity(orderBy);
     }
+
+
 
 
     @Override

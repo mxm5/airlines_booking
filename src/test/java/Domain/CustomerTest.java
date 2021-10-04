@@ -22,10 +22,10 @@ class CustomerTest {
         assertNotNull(id);
         Class<Customer> customerClass = Customer.class;
         Customer customerQ = entityManager.find(customerClass, id);
-        customerQ.setBalance(1000L);
+        customerQ.setBalance(1000);
         entityManager.merge(customerQ);
-        Long balance = entityManager.find(customerClass, id).getBalance();
-        assertEquals(1000L,balance);
+        int balance = entityManager.find(customerClass, id).getBalance();
+        assertEquals(1000,balance);
     }
 
     @Test
